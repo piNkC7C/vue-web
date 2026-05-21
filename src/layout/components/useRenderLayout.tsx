@@ -182,7 +182,7 @@ export const useRenderLayout = () => {
             ]}
           >
             {logo.value ? <Logo class="custom-hover"></Logo> : undefined}
-            <Menu class="h-[var(--top-tool-height)] flex-1 pr-[calc(var(--logo-height)+18px)]"></Menu>
+            <Menu class="h-[var(--top-tool-height)] flex-1 pr-[210px]"></Menu>
           </div>
         </div>
         <div class={[`${prefixCls}-content`, 'absolute top-0 left-0 w-full h-full']}>
