@@ -41,7 +41,7 @@ export const useRenderLayout = () => {
       <>
         <div
           class={[
-            'absolute top-0 left-0 h-full layout-border__right',
+            'absolute top-0 right-0 h-full layout-border__right',
             { '!fixed z-3000': mobile.value }
           ]}
         >
@@ -65,11 +65,11 @@ export const useRenderLayout = () => {
             `${prefixCls}-content`,
             'absolute top-0 h-[100%]',
             {
-              'w-[calc(100%-var(--left-menu-min-width))] left-[var(--left-menu-min-width)]':
+              'w-[calc(100%-var(--left-menu-min-width))] right-[var(--left-menu-min-width)]':
                 collapse.value && !mobile.value && !mobile.value,
-              'w-[calc(100%-var(--left-menu-max-width))] left-[var(--left-menu-max-width)]':
+              'w-[calc(100%-var(--left-menu-max-width))] right-[var(--left-menu-max-width)]':
                 !collapse.value && !mobile.value && !mobile.value,
-              'fixed !w-full !left-0': mobile.value
+              'fixed !w-full !right-0': mobile.value
             }
           ]}
           style="transition: all var(--transition-time-02);"
@@ -87,12 +87,12 @@ export const useRenderLayout = () => {
             <div
               class={[
                 {
-                  'fixed top-0 left-0 z-10': fixedHeader.value,
-                  'w-[calc(100%-var(--left-menu-min-width))] !left-[var(--left-menu-min-width)]':
+                  'fixed top-0 right-0 z-10': fixedHeader.value,
+                  'w-[calc(100%-var(--left-menu-min-width))] !right-[var(--left-menu-min-width)]':
                     collapse.value && fixedHeader.value && !mobile.value,
-                  'w-[calc(100%-var(--left-menu-max-width))] !left-[var(--left-menu-max-width)]':
+                  'w-[calc(100%-var(--left-menu-max-width))] !right-[var(--left-menu-max-width)]':
                     !collapse.value && fixedHeader.value && !mobile.value,
-                  '!w-full !left-0': mobile.value
+                  '!w-full !right-0': mobile.value
                 }
               ]}
               style="transition: all var(--transition-time-02);"
@@ -178,17 +178,16 @@ export const useRenderLayout = () => {
   const renderTop = () => {
     return (
       <>
-        <div
-          class={[
-            'flex items-center justify-between bg-[var(--top-header-bg-color)] relative',
-            {
-              'layout-border__bottom': !tagsView.value
-            }
-          ]}
-        >
-          {logo.value ? <Logo class="custom-hover"></Logo> : undefined}
-          <Menu class="h-[var(--top-tool-height)] flex-1 px-10px"></Menu>
-          <ToolHeader></ToolHeader>
+        <div class={['p-[1.5rem] pb-0 box-border bg-[var(--top-header-bg-color)] relative']}>
+          <div
+            class={[
+              'px-4 py-1 box-border w-full rounded-full overflow-hidden flex items-center justify-between',
+              'gradient-card'
+            ]}
+          >
+            {logo.value ? <Logo class="custom-hover"></Logo> : undefined}
+            <Menu class="h-[var(--top-tool-height)] flex-1 px-10px"></Menu>
+          </div>
         </div>
         <div class={[`${prefixCls}-content`, 'w-full h-[calc(100%-var(--top-tool-height))]']}>
           <ElScrollbar

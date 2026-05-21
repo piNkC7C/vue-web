@@ -27,7 +27,7 @@ const toggleCollapse = () => {
   <div :class="prefixCls" @click="toggleCollapse">
     <Icon
       :color="color"
-      :icon="collapse ? 'ep:expand' : 'ep:fold'"
+      :icon="collapse ? 'ep:fold' : 'ep:expand'"
       :size="18"
       class="cursor-pointer"
     />

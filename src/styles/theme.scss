@@ -4,3 +4,43 @@
 // .dark .dark\:text-color {
 //   color: rgba(255, 255, 255, var(--dark-text-color));
 // }
+
+// 渐变边框-透明背景
+%gradient-base {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  box-shadow:
+    -4px 5px 8px 0px rgba(255, 255, 255, 0.08) inset,
+    0px -2px 8px 0px rgba(255, 255, 255, 0.06) inset;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+        175deg,
+        rgba(109, 156, 250, 0.1),
+        rgba(87, 125, 240, 0.87),
+        rgba(71, 206, 233, 0.2),
+        rgba(109, 156, 250, 0.2)
+      );
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    --webkit-pointer-events: none;
+  }
+}
+
+.gradient-card {
+  @extend %gradient-base;
+}

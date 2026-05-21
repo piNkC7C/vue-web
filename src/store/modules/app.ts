@@ -46,10 +46,10 @@ export const useAppStore = defineStore('app', {
       userInfo: 'userInfo', // 登录信息存储字段-建议每个项目换一个字段，避免与其他项目冲突
       sizeMap: ['default', 'large', 'small'],
       mobile: false, // 是否是移动端
-      title: import.meta.env.VITE_APP_TITLE, // 标题
+      title: '', // 标题
       pageLoading: false, // 路由跳转loading
 
-      breadcrumb: true, // 面包屑
+      breadcrumb: false, // 面包屑
       breadcrumbIcon: true, // 面包屑图标
       collapse: false, // 折叠菜单
       uniqueOpened: true, // 是否只保持一个子菜单的展开
@@ -59,7 +59,7 @@ export const useAppStore = defineStore('app', {
       size: true, // 尺寸图标
       locale: true, // 多语言图标
       message: true, // 消息图标
-      tagsView: true, // 标签页
+      tagsView: false, // 标签页
       tagsViewImmerse: false, // 标签页沉浸
       tagsViewIcon: true, // 是否显示标签图标
       logo: true, // logo
@@ -68,8 +68,10 @@ export const useAppStore = defineStore('app', {
       greyMode: false, // 是否开始灰色模式，用于特殊悼念日
       fixedMenu: wsCache.get('fixedMenu') || false, // 是否固定菜单
 
-      layout: wsCache.get(CACHE_KEY.LAYOUT) || 'classic', // layout布局
-      isDark: wsCache.get(CACHE_KEY.IS_DARK) || false, // 是否是暗黑模式
+      // layout: wsCache.get(CACHE_KEY.LAYOUT) || 'top', // layout布局
+      // isDark: wsCache.get(CACHE_KEY.IS_DARK) || true, // 是否是暗黑模式
+      layout: 'top', // layout布局
+      isDark: true, // 是否是暗黑模式
       currentSize: wsCache.get('default') || 'default', // 组件尺寸
       theme: wsCache.get(CACHE_KEY.THEME) || {
         // 主题色
@@ -77,11 +79,11 @@ export const useAppStore = defineStore('app', {
         // 左侧菜单边框颜色
         leftMenuBorderColor: 'inherit',
         // 左侧菜单背景颜色
-        leftMenuBgColor: '#001529',
+        leftMenuBgColor: 'transparent',
         // 左侧菜单浅色背景颜色
         leftMenuBgLightColor: '#0f2438',
         // 左侧菜单选中背景颜色
-        leftMenuBgActiveColor: 'var(--el-color-primary)',
+        leftMenuBgActiveColor: 'transparent',
         // 左侧菜单收起选中背景颜色
         leftMenuCollapseBgActiveColor: 'var(--el-color-primary)',
         // 左侧菜单字体颜色
@@ -93,7 +95,7 @@ export const useAppStore = defineStore('app', {
         // logo边框颜色
         logoBorderColor: 'inherit',
         // 头部背景颜色
-        topHeaderBgColor: '#fff',
+        topHeaderBgColor: 'transparent',
         // 头部字体颜色
         topHeaderTextColor: 'inherit',
         // 头部悬停颜色

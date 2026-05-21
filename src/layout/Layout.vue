@@ -6,7 +6,7 @@ import { Setting } from '@/layout/components/Setting'
 import { useRenderLayout } from './components/useRenderLayout'
 import { useDesign } from '@/hooks/web/useDesign'
 
-const { getPrefixCls } = useDesign()
+const { getPrefixCls, variables } = useDesign()
 
 const prefixCls = getPrefixCls('layout')
 
@@ -59,7 +59,7 @@ export default defineComponent({
 
         <Backtop></Backtop>
 
-        <Setting></Setting>
+        {/* <Setting></Setting> */}
       </section>
     )
   }

@@ -210,16 +210,18 @@ $prefix-cls: #{$namespace}-menu;
 
     :deep(.#{$elNamespace}-menu--horizontal) {
       height: calc(var(--top-tool-height));
+      justify-content: center;
       border-bottom: none;
       // 重新设置底部高亮颜色
       & > .#{$elNamespace}-sub-menu.is-active {
         .#{$elNamespace}-sub-menu__title {
-          border-bottom-color: var(--el-color-primary) !important;
+          border-bottom: none !important;
         }
       }
 
       .#{$elNamespace}-menu-item.is-active {
         position: relative;
+        border-bottom: none !important;
 
         &::after {
           display: none !important;

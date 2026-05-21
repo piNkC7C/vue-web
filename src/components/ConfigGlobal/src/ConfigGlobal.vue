@@ -37,6 +37,8 @@ watch(
     } else {
       appStore.getMobile ? appStore.setMobile(false) : undefined
       setCssVar('--left-menu-min-width', '64px')
+      appStore.setCollapse(false)
+      appStore.getLayout !== 'top' ? appStore.setLayout('top') : undefined
     }
   },
   {
