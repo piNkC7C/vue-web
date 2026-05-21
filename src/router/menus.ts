@@ -10,6 +10,45 @@ export const customMenus: AppRouteRecordRaw[] = [
     }
   },
   {
+    name: 'GEO',
+    menuType: 'route',
+    meta: {
+      title: 'GEO优化'
+    },
+    children: [
+      {
+        name: 'Brand',
+        menuType: 'button',
+        meta: {
+          title: '品牌诊断'
+        },
+        action: () => {
+          ElMessage.success('品牌诊断！')
+        }
+      },
+      {
+        name: 'Word',
+        menuType: 'button',
+        meta: {
+          title: '词条监测'
+        },
+        action: () => {
+          ElMessage.success('词条监测！')
+        }
+      },
+      {
+        name: 'Star',
+        menuType: 'button',
+        meta: {
+          title: '智推星'
+        },
+        action: () => {
+          ElMessage.success('智推星！')
+        }
+      }
+    ]
+  },
+  {
     path: '/aiapp',
     name: 'AIapp',
     menuType: 'route',

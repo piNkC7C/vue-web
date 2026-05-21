@@ -37,6 +37,9 @@ import App from './App.vue'
 
 import './permission'
 
+import { useNProgress } from '@/hooks/web/useNProgress'
+useNProgress().start()
+
 import '@/plugins/tongji' // 百度统计
 import Logger from '@/utils/Logger'
 
