@@ -53,12 +53,11 @@ const remainingRouter: AppRouteRecordRaw[] = [
   {
     path: '/',
     component: Layout,
-    redirect: '/index',
     name: 'Home',
     meta: {},
     children: [
       {
-        path: 'index',
+        path: '',
         component: () => import('@/views/Home/Index.vue'),
         name: 'Index',
         meta: {
@@ -77,7 +76,7 @@ const remainingRouter: AppRouteRecordRaw[] = [
     meta: {},
     children: [
       {
-        path: 'index',
+        path: '',
         component: () => import('@/views/AIapp/Index.vue'),
         name: 'AIappIndex',
         meta: {
@@ -96,7 +95,7 @@ const remainingRouter: AppRouteRecordRaw[] = [
     meta: {},
     children: [
       {
-        path: 'index',
+        path: '',
         component: () => import('@/views/Agent/Index.vue'),
         name: 'AgentIndex',
         meta: {

@@ -2,53 +2,47 @@ import { ElMessage } from 'element-plus'
 
 export const customMenus: AppRouteRecordRaw[] = [
   {
-    path: '/index',
+    path: '/',
     name: 'Home',
     menuType: 'route',
     meta: {
-      title: '首页',
-      icon: 'ep:home-filled'
+      title: '首页'
     }
   },
   {
-    path: '/aiapp/index',
+    path: '/aiapp',
     name: 'AIapp',
     menuType: 'route',
     meta: {
-      title: 'AI应用开发',
-      icon: 'ep:menu'
+      title: 'AI应用开发'
     }
   },
   {
-    path: '/agent/index',
+    path: '/agent',
     name: 'Agent',
     menuType: 'route',
     meta: {
-      title: 'Agent应用',
-      icon: 'ep:monitor'
+      title: '智能体定制'
     }
   },
   {
-    name: 'Btn1',
+    name: 'News',
     menuType: 'button',
     meta: {
-      title: '点击弹窗(按钮菜单)',
-      icon: 'ep:pointer'
+      title: '新闻动态'
     },
     action: () => {
-      ElMessage.success('触发了按钮菜单事件！')
+      ElMessage.success('新闻动态！')
     }
   },
   {
-    name: 'Btn2',
+    name: 'Contact',
     menuType: 'button',
     meta: {
-      title: '打印日志(按钮菜单)',
-      icon: 'ep:document'
+      title: '联系我们'
     },
     action: () => {
-      console.log('触发了按钮菜单事件，打印日志')
-      ElMessage.info('已在控制台打印日志')
+      ElMessage.info('联系我们！')
     }
   }
 ]

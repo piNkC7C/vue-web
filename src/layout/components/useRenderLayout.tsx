@@ -79,8 +79,7 @@ export const useRenderLayout = () => {
             class={[
               `${prefixCls}-content-scrollbar`,
               {
-                '!h-[calc(100%-var(--top-tool-height)-var(--tags-view-height))] mt-[calc(var(--top-tool-height)+var(--tags-view-height))]':
-                  fixedHeader.value
+                '!h-full': fixedHeader.value
               }
             ]}
           >
@@ -97,14 +96,7 @@ export const useRenderLayout = () => {
               ]}
               style="transition: all var(--transition-time-02);"
             >
-              <ToolHeader
-                class={[
-                  'bg-[var(--top-header-bg-color)]',
-                  {
-                    'layout-border__bottom': !tagsView.value
-                  }
-                ]}
-              ></ToolHeader>
+              <ToolHeader class={['bg-[var(--top-header-bg-color)]']}></ToolHeader>
 
               {tagsView.value ? (
                 <TagsView class="layout-border__top layout-border__bottom"></TagsView>
@@ -121,7 +113,7 @@ export const useRenderLayout = () => {
   const renderTopLeft = () => {
     return (
       <>
-        <div class="relative flex items-center bg-[var(--top-header-bg-color)] layout-border__bottom dark:bg-[var(--el-bg-color)]">
+        <div class="relative flex items-center bg-[var(--top-header-bg-color)] layout-border__bottom dark:bg-transparent">
           {logo.value ? <Logo class="custom-hover"></Logo> : undefined}
 
           <ToolHeader class="flex-1"></ToolHeader>
@@ -178,7 +170,11 @@ export const useRenderLayout = () => {
   const renderTop = () => {
     return (
       <>
-        <div class={['p-[1.5rem] pb-0 box-border bg-[var(--top-header-bg-color)] relative']}>
+        <div
+          class={[
+            'p-[1.5rem] pb-0 box-border bg-[var(--top-header-bg-color)] absolute top-0 left-0 w-full z-20'
+          ]}
+        >
           <div
             class={[
               'px-4 py-1 box-border w-full rounded-full overflow-hidden flex items-center justify-between',
@@ -186,10 +182,10 @@ export const useRenderLayout = () => {
             ]}
           >
             {logo.value ? <Logo class="custom-hover"></Logo> : undefined}
-            <Menu class="h-[var(--top-tool-height)] flex-1 px-10px"></Menu>
+            <Menu class="h-[var(--top-tool-height)] flex-1 pr-[calc(var(--logo-height)+18px)]"></Menu>
           </div>
         </div>
-        <div class={[`${prefixCls}-content`, 'w-full h-[calc(100%-var(--top-tool-height))]']}>
+        <div class={[`${prefixCls}-content`, 'absolute top-0 left-0 w-full h-full']}>
           <ElScrollbar
             v-loading={pageLoading.value}
             class={[

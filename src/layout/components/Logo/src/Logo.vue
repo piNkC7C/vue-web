@@ -11,7 +11,7 @@ const prefixCls = getPrefixCls('logo')
 
 const appStore = useAppStore()
 
-const show = ref(true)
+const show = ref(false)
 
 const title = computed(() => appStore.getTitle)
 
