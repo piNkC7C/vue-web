@@ -57,7 +57,8 @@ type Component<T = any> =
   | (() => Promise<T>)
 
 declare global {
-  interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
+  interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta' | 'path'> {
+    path?: string
     name: string
     meta: RouteMeta
     component?: Component | string
@@ -65,6 +66,8 @@ declare global {
     props?: Recordable
     fullPath?: string
     keepAlive?: boolean
+    action?: () => void
+    menuType?: 'route' | 'button'
   }
 
   interface AppCustomRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {

@@ -1,5 +1,4 @@
 <script lang="tsx">
-import { usePermissionStore } from '@/store/modules/permission'
 import { useAppStore } from '@/store/modules/app'
 
 import { ElScrollbar } from 'element-plus'
@@ -10,6 +9,7 @@ import { cloneDeep } from 'lodash-es'
 import { filterMenusPath, initTabMap, tabPathMap } from './helper'
 import { useDesign } from '@/hooks/web/useDesign'
 import { isUrl } from '@/utils/is'
+import { customMenus } from '@/router/menus'
 
 const { getPrefixCls, variables } = useDesign()
 
@@ -18,7 +18,7 @@ const prefixCls = getPrefixCls('tab-menu')
 export default defineComponent({
   name: 'TabMenu',
   setup() {
-    const { push, currentRoute } = useRouter()
+    const { push, currentRoute, options } = useRouter()
 
     const { t } = useI18n()
 
@@ -28,9 +28,7 @@ export default defineComponent({
 
     const fixedMenu = computed(() => appStore.getFixedMenu)
 
-    const permissionStore = usePermissionStore()
-
-    const routers = computed(() => permissionStore.getRouters)
+    const routers = computed(() => customMenus)
 
     const tabRouters = computed(() => unref(routers).filter((v) => !v?.meta?.hidden))
 
@@ -49,12 +47,7 @@ export default defineComponent({
 
         tabActive.value = path
         if (children) {
-          permissionStore.setMenuTabRouters(
-            cloneDeep(children).map((v) => {
-              v.path = pathResolve(unref(tabActive), v.path)
-              return v
-            })
-          )
+          // No longer using permissionStore for static website
         }
       }
     })
@@ -94,28 +87,29 @@ export default defineComponent({
 
     // tab点击事件
     const tabClick = (item: AppRouteRecordRaw) => {
-      if (isUrl(item.path)) {
-        window.open(item.path)
+      if (item.menuType === 'button' || item.action) {
+        item.action?.()
         return
       }
-      const newPath = item.children ? item.path : item.path.split('/')[0]
+
+      const p = item.path || ''
+      if (isUrl(p)) {
+        window.open(p)
+        return
+      }
+      const newPath = item.children ? p : p.split('/')[0]
       const oldPath = unref(tabActive)
-      tabActive.value = item.children ? item.path : item.path.split('/')[0]
+      tabActive.value = item.children ? p : p.split('/')[0]
       if (item.children) {
         if (newPath === oldPath || !unref(showMenu)) {
           showMenu.value = unref(fixedMenu) ? true : !unref(showMenu)
         }
         if (unref(showMenu)) {
-          permissionStore.setMenuTabRouters(
-            cloneDeep(item.children).map((v) => {
-              v.path = pathResolve(unref(tabActive), v.path)
-              return v
-            })
-          )
+          // No longer using permissionStore for static website
         }
       } else {
-        push(item.path)
-        permissionStore.setMenuTabRouters([])
+        push(p)
+        // No longer using permissionStore for static website
         showMenu.value = false
       }
     }
@@ -156,7 +150,10 @@ export default defineComponent({
                     ? v
                     : {
                         ...(v?.children && v?.children[0]),
-                        path: pathResolve(v.path, (v?.children && v?.children[0])?.path as string)
+                        path: pathResolve(
+                          v.path || '',
+                          (v?.children && v?.children[0])?.path as string
+                        )
                       }
                 ) as AppRouteRecordRaw
                 return (
@@ -165,7 +162,8 @@ export default defineComponent({
                       `${prefixCls}__item`,
                       'text-center text-12px relative py-12px cursor-pointer',
                       {
-                        'is-active': isActive(v.path)
+                        'is-active':
+                          item.menuType !== 'button' && !item.action && isActive(v.path || '')
                       }
                     ]}
                     onClick={() => {

@@ -71,6 +71,44 @@ const remainingRouter: AppRouteRecordRaw[] = [
     ]
   },
   {
+    path: '/aiapp',
+    component: Layout,
+    name: 'AIapp',
+    meta: {},
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/AIapp/Index.vue'),
+        name: 'AIappIndex',
+        meta: {
+          title: 'AI应用开发',
+          icon: 'ep:home-filled',
+          noCache: false,
+          affix: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/agent',
+    component: Layout,
+    name: 'Agent',
+    meta: {},
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/Agent/Index.vue'),
+        name: 'AgentIndex',
+        meta: {
+          title: '智能体定制',
+          icon: 'ep:home-filled',
+          noCache: false,
+          affix: true
+        }
+      }
+    ]
+  },
+  {
     path: '/login',
     component: () => import('@/views/Login/Login.vue'),
     name: 'Login',

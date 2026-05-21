@@ -1,12 +1,13 @@
 <script lang="tsx">
 import { PropType } from 'vue'
-import { ElMenu, ElScrollbar } from 'element-plus'
+import { ElMenu, ElScrollbar, ElMessage } from 'element-plus'
 import { useAppStore } from '@/store/modules/app'
-import { usePermissionStore } from '@/store/modules/permission'
 import { useRenderMenuItem } from './components/useRenderMenuItem'
 import { isUrl } from '@/utils/is'
 import { useDesign } from '@/hooks/web/useDesign'
 import { LayoutType } from '@/types/layout'
+import { pathResolve } from '@/utils/routerHelper'
+import { customMenus } from '@/router/menus'
 
 const { getPrefixCls } = useDesign()
 
@@ -27,8 +28,6 @@ export default defineComponent({
 
     const { push, currentRoute } = useRouter()
 
-    const permissionStore = usePermissionStore()
-
     const menuMode = computed((): 'vertical' | 'horizontal' => {
       // 竖
       const vertical: LayoutType[] = ['classic', 'topLeft', 'cutMenu']
@@ -40,9 +39,7 @@ export default defineComponent({
       }
     })
 
-    const routers = computed(() =>
-      unref(layout) === 'cutMenu' ? permissionStore.getMenuTabRouters : permissionStore.getRouters
-    )
+    const routers = computed(() => customMenus)
 
     const collapse = computed(() => appStore.getCollapse)
 
@@ -57,10 +54,41 @@ export default defineComponent({
       return path
     })
 
+    const findMenuByIndex = (
+      menus: AppRouteRecordRaw[],
+      index: string,
+      parentPath = '/'
+    ): AppRouteRecordRaw | undefined => {
+      for (const menu of menus) {
+        let fullPath = ''
+        if (menu.menuType === 'button') {
+          fullPath = menu.name
+        } else {
+          const p = menu.path || ''
+          fullPath = isUrl(p) ? p : pathResolve(parentPath, p)
+        }
+
+        if (fullPath === index) {
+          return menu
+        }
+        if (menu.children) {
+          const found = findMenuByIndex(menu.children, index, fullPath)
+          if (found) return found
+        }
+      }
+    }
+
     const menuSelect = (index: string) => {
       if (props.menuSelect) {
         props.menuSelect(index)
       }
+
+      const targetMenu = findMenuByIndex(customMenus, index)
+      if (targetMenu && (targetMenu.menuType === 'button' || targetMenu.action)) {
+        targetMenu.action?.()
+        return
+      }
+
       // 自定义事件
       if (isUrl(index)) {
         window.open(index)
@@ -98,7 +126,7 @@ export default defineComponent({
         >
           {{
             default: () => {
-              const { renderMenuItem } = useRenderMenuItem(unref(menuMode))
+              const { renderMenuItem } = useRenderMenuItem()
               return renderMenuItem(unref(routers))
             }
           }}
@@ -212,6 +240,11 @@ $prefix-cls: #{$namespace}-menu;
       height: calc(var(--top-tool-height));
       justify-content: center;
       border-bottom: none;
+
+      & > .#{$elNamespace}-menu-item {
+        border-bottom: none;
+      }
+
       // 重新设置底部高亮颜色
       & > .#{$elNamespace}-sub-menu.is-active {
         .#{$elNamespace}-sub-menu__title {
