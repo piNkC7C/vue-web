@@ -70,6 +70,6 @@ export default defineComponent({
 $prefix-cls: #{$namespace}-layout;
 
 .#{$prefix-cls} {
-  background-color: var(--app-content-bg-color);
+  background-color: transparent;
 }
 </style>

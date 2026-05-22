@@ -9,5 +9,7 @@ const IMG_BASE_URL = import.meta.env.DEV ? DEV_IMG_BASE_URL : PROD_IMG_BASE_URL
 
 export const IMG_MAP = {
   logoText: `${IMG_BASE_URL}/logo-text.png`,
-  logoIcon: `${IMG_BASE_URL}/logo-icon.png`
+  logoIcon: `${IMG_BASE_URL}/logo-icon.png`,
+
+  bgHome: `${IMG_BASE_URL}/bg-home.png`
 }
